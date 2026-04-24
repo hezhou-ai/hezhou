@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<!-- 微信分享元数据 -->
+<title>贺州乡村显眼包AI · 村口整活神器</title>
+<meta name="description" content="贺州人自己的AI整活平台！城区闲逛导航、方言大喇叭、运势机、美食发明家…点一下直接出结果，专治无聊！">
+<meta name="keywords" content="贺州,AI,整活,显眼包,闲逛导航,方言,运势">
+<!-- 微信分享缩略图（用内联SVG生成一张300x300的分享图） -->
+<meta property="og:title" content="贺州乡村显眼包AI · 村口整活神器">
+<meta property="og:description" content="贺州人自己的AI整活平台！点一下直接出结果，专治无聊！">
+<meta property="og:type" content="website">
+<meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Crect fill='%23e8303a' width='300' height='300' rx='20'/%3E%3Ctext x='150' y='100' text-anchor='middle' fill='%23fff' font-size='36' font-weight='900'%3E贺州显眼包AI%3C/text%3E%3Ctext x='150' y='155' text-anchor='middle' fill='%23ffe0b2' font-size='20'%3E村口整活神器%3C/text%3E%3Ctext x='150' y='200' text-anchor='middle' fill='%23fff' font-size='16'%3E专治无聊 · 纯玩无用%3C/text%3E%3Ctext x='150' y='260' text-anchor='middle' fill='%23ffe0b2' font-size='28'%3E🌾🎉🍜🎲%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --red: #e8303a;
+    --gold: #f5a623;
+    --orange: #ff6b35;
+    --dark: #1a1a2e;
+    --card-bg: #fff8f0;
+    --border: #ffe0b2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { overflow-x: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #fff3e0;
+    min-height: 100vh;
+    color: #333;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== 微信分享引导遮罩 ===== */
+  .share-guide {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.75); z-index: 9999;
+    flex-direction: column; align-items: center; justify-content: flex-start;
+    padding-top: 40px;
+  }
+  .share-guide.show { display: flex; }
+  .share-guide-arrow {
+    width: 80px; height: 80px; margin-bottom: 20px;
+    animation: bounceArrow 1s ease-in-out infinite;
+  }
+  .share-guide-text { color: #fff; font-size: 18px; font-weight: 700; text-align: center; line-height: 1.8; padding: 0 30px; }
+  .share-guide-close { color: #fff; font-size: 14px; margin-top: 30px; opacity: 0.7; cursor: pointer; }
+  @keyframes bounceArrow { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+  /* ===== BANNER（竖屏截图友好） ===== */
+  .banner {
+    background: linear-gradient(135deg, #e8303a 0%, #c0392b 40%, #f5a623 100%);
+    padding: 32px 20px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* 装饰性背景圆 */
+  .banner::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+  .banner::after {
+    content: ''; position: absolute; bottom: -20px; left: -30px;
+    width: 80px; height: 80px; border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .banner-emoji { font-size: 32px; margin-bottom: 8px; letter-spacing: 6px; }
+  .banner-title {
+    font-size: 28px; font-weight: 900; color: #fff;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3); line-height: 1.35;
+    position: relative;
+  }
+  .banner-sub {
+    font-size: 14px; color: #ffe0b2; margin-top: 10px; line-height: 1.7;
+    position: relative;
+  }
+  .banner-badges {
+    display: flex; gap: 8px; justify-content: center;
+    margin-top: 14px; position: relative; flex-wrap: wrap;
+  }
+  .banner-badge {
+    background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 20px; padding: 4px 14px; font-size: 12px; color: #fff;
+  }
+
+  /* ===== 分享按钮条 ===== */
+  .share-bar {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 14px 16px;
+    background: linear-gradient(90deg, #fff8f0, #fce4ec);
+    border-bottom: 1px solid #ffe0b2;
+  }
+  .share-btn {
+    display: flex; align-items: center; gap: 5px;
+    background: var(--red); color: #fff; border: none;
+    border-radius: 22px; padding: 8px 18px;
+    font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  .share-btn:active { opacity: 0.85; transform: scale(0.97); }
+  .share-btn-green { background: #27ae60; }
+  .share-btn-blue { background: #3498db; }
+  .share-tip { font-size: 11px; color: #999; }
+
+  /* ===== API KEY 设置区（可折叠） ===== */
+  .api-toggle {
+    display: flex; align-items: center; justify-content: space-between;
+    margin: 10px 14px 0; padding: 10px 14px;
+    background: #e8f5e9; border: 1.5px solid #a5d6a7;
+    border-radius: 12px; cursor: pointer; font-size: 13px;
+    color: #2e7d32; font-weight: 700;
+  }
+  .api-toggle-arrow { font-size: 14px; transition: transform 0.25s; }
+  .api-toggle.open .api-toggle-arrow { transform: rotate(180deg); }
+  .api-panel {
+    display: none; margin: 0 14px; padding: 12px 14px;
+    background: #f1f8e9; border: 1px solid #c5e1a5;
+    border-radius: 0 0 12px 12px; border-top: none;
+  }
+  .api-panel.show { display: block; }
+  .api-source-row { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
+  .src-btn {
+    background: #fff; border: 1.5px solid #a5d6a7; border-radius: 20px;
+    padding: 5px 12px; font-size: 12px; color: #555; cursor: pointer;
+  }
+  .src-btn.active { background: #2e7d32; border-color: #2e7d32; color: #fff; font-weight: 700; }
+  .src-btn:active { opacity: 0.8; }
+  .api-row { display: flex; gap: 8px; align-items: center; }
+  .api-row input {
+    flex: 1; border: 1.5px solid #a5d6a7; border-radius: 8px;
+    padding: 9px 10px; font-size: 13px; color: #333; background: #fff; outline: none;
+  }
+  .api-row input:focus { border-color: #2e7d32; }
+  .api-save {
+    background: #2e7d32; color: #fff; border: none; border-radius: 8px;
+    padding: 9px 14px; font-size: 13px; font-weight: 700; cursor: pointer;
+    white-space: nowrap;
+  }
+  .api-save:active { opacity: 0.8; }
+  .api-status { font-size: 11px; color: #666; margin-top: 6px; }
+  .api-status a { color: #2e7d32; }
+
+  /* ===== 功能区标题 ===== */
+  .section-title {
+    font-size: 14px; font-weight: 800; color: #888;
+    letter-spacing: 2px; margin: 18px 16px 10px;
+    text-align: center; position: relative;
+  }
+  .section-title::before, .section-title::after {
+    content: '—'; color: #ddd; margin: 0 6px;
+  }
+
+  /* ===== 卡片网格 ===== */
+  .card-grid {
+    display: grid; grid-template-columns: 1fr;
+    gap: 12px; padding: 0 12px;
+  }
+
+  /* ===== 卡片 ===== */
+  .card {
+    background: var(--card-bg); border: 1.5px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 2px 10px rgba(232,48,58,0.06);
+  }
+  .card-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 16px 12px; cursor: pointer; user-select: none;
+  }
+  .card-icon { font-size: 28px; flex-shrink: 0; }
+  .card-info { flex: 1; }
+  .card-name { font-size: 16px; font-weight: 800; color: #1a1a2e; line-height: 1.3; }
+  .card-desc { font-size: 11.5px; color: #aaa; margin-top: 2px; }
+  .card-arrow { font-size: 16px; color: #ccc; transition: transform 0.25s; flex-shrink: 0; }
+  .card.open .card-arrow { transform: rotate(90deg); }
+
+  .card-body {
+    display: none; padding: 0 14px 14px;
+    border-top: 1px dashed #ffe0b2;
+  }
+  .card.open .card-body { display: block; }
+
+  /* 颜色主题条 */
+  .theme-red .card-header { border-left: 4px solid #e8303a; }
+  .theme-orange .card-header { border-left: 4px solid #ff6b35; }
+  .theme-gold .card-header { border-left: 4px solid #f5a623; }
+  .theme-green .card-header { border-left: 4px solid #27ae60; }
+  .theme-blue .card-header { border-left: 4px solid #3498db; }
+  .theme-purple .card-header { border-left: 4px solid #9b59b6; }
+  .theme-teal .card-header { border-left: 4px solid #16a085; }
+  .theme-pink .card-header { border-left: 4px solid #e91e8c; }
+
+  /* ===== 子Tab ===== */
+  .tab-row { display: flex; gap: 6px; flex-wrap: wrap; padding: 10px 0 8px; }
+  .tab-btn {
+    background: #fff; border: 1.5px solid #ddd; border-radius: 20px;
+    padding: 5px 12px; font-size: 12px; color: #555; cursor: pointer;
+  }
+  .tab-btn.active { background: var(--red); border-color: var(--red); color: #fff; font-weight: 700; }
+
+  /* ===== 输入区 ===== */
+  .input-area { margin-bottom: 8px; }
+  .input-label {
+    font-size: 12px; font-weight: 700; color: #999;
+    margin-bottom: 4px; margin-top: 6px;
+  }
+  .input-area input, .input-area select {
+    width: 100%; border: 1.5px solid #e0e0e0; border-radius: 10px;
+    padding: 10px 12px; font-size: 15px; color: #333; background: #fff;
+    outline: none; font-family: inherit;
+    -webkit-appearance: none; appearance: none;
+  }
+  .input-area input:focus, .input-area select:focus { border-color: var(--red); }
+  .input-area select { background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%23999' fill='none' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 12px center; }
+
+  /* ===== 生成按钮 ===== */
+  .gen-btn {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    width: 100%; margin-top: 10px; padding: 13px;
+    background: linear-gradient(135deg, var(--red), var(--orange));
+    color: #fff; font-size: 16px; font-weight: 800;
+    border: none; border-radius: 12px; cursor: pointer;
+    letter-spacing: 1px;
+  }
+  .gen-btn:active { opacity: 0.85; transform: scale(0.98); }
+  .gen-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+  /* ===== 结果区 ===== */
+  .result-area {
+    margin-top: 10px; background: #fff;
+    border: 1.5px solid #e0e0e0; border-radius: 12px;
+    overflow: hidden; display: none;
+  }
+  .result-area.show { display: block; }
+  .result-header {
+    background: linear-gradient(90deg, #fff3e0, #fce4ec);
+    padding: 8px 14px; font-size: 12px; font-weight: 700; color: #e8303a;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .result-actions { display: flex; gap: 6px; }
+  .result-copy-btn, .result-share-btn {
+    background: transparent; border: 1px solid #e8303a;
+    border-radius: 8px; padding: 3px 10px;
+    font-size: 11px; color: #e8303a; cursor: pointer;
+  }
+  .result-copy-btn.copied { background: #e8303a; color: #fff; }
+  .result-content {
+    padding: 14px; font-size: 15px; color: #333;
+    line-height: 1.9; white-space: pre-wrap; word-break: break-all;
+    min-height: 60px;
+  }
+
+  /* 流式光标 */
+  .cursor {
+    display: inline-block; width: 2px; height: 1em;
+    background: var(--red); margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 0.8s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* loading */
+  .loading-dots { display: inline-flex; gap: 4px; align-items: center; }
+  .loading-dots span {
+    width: 7px; height: 7px; border-radius: 50%; background: #e8303a;
+    animation: dotPulse 1.2s ease-in-out infinite;
+  }
+  .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dotPulse { 0%,80%,100%{transform:scale(0.6);opacity:0.4} 40%{transform:scale(1);opacity:1} }
+
+  /* ===== 底部 ===== */
+  .footer {
+    text-align: center; padding: 24px 16px calc(20px + env(safe-area-inset-bottom, 0));
+    font-size: 12px; color: #bbb; line-height: 1.8;
+  }
+  .footer .share-card {
+    background: #fff; border-radius: 14px; padding: 16px;
+    margin-bottom: 16px; font-size: 13px; color: #666;
+    border: 1.5px solid #eee; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .footer .share-card strong { color: var(--red); }
+  .footer .share-steps {
+    text-align: left; margin-top: 8px; padding: 8px 12px;
+    background: #fafafa; border-radius: 8px; font-size: 12px; color: #888; line-height: 2;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: calc(60px + env(safe-area-inset-bottom, 0)); left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(0,0,0,0.8); color: #fff;
+    padding: 10px 22px; border-radius: 24px;
+    font-size: 14px; opacity: 0; pointer-events: none;
+    transition: all 0.3s; z-index: 9998; white-space: nowrap;
+    max-width: 85%;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ===== 微信适配 ===== */
+  /* 防止iOS橡皮筋效果 */
+  body { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  /* 适配底部安全区 */
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0); }
+</style>
+</head>
+<body>
+
+<!-- 分享引导遮罩 -->
+<div class="share-guide" id="shareGuide" onclick="this.classList.remove('show')">
+  <svg class="share-guide-arrow" viewBox="0 0 80 80" fill="none">
+    <path d="M40 10 L50 35 H30 Z" fill="#fff"/>
+    <rect x="10" y="35" width="60" height="6" rx="3" fill="#fff" opacity="0.5"/>
+  </svg>
+  <div class="share-guide-text">
+    点击右上角 <b>⋯</b><br>
+    选择「发送给朋友」或「分享到朋友圈」<br>
+    就能把整活神器转发给好友啦！
+  </div>
+  <div class="share-guide-close">点击任意处关闭</div>
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+  <div class="banner-emoji">🌾🏮🎉🎋</div>
+  <div class="banner-title">贺州乡村显眼包AI<br>村口整活神器</div>
+  <div class="banner-sub">专治无聊 · 纯玩无用 · 本地限定<br>贺州人自己的AI整活平台</div>
+  <div class="banner-badges">
+    <span class="banner-badge">⚡ 点击直接出结果</span>
+    <span class="banner-badge">📱 手机直接用</span>
+    <span class="banner-badge">🔄 随便转发</span>
+  </div>
+</div>
+
+<!-- 分享按钮条 -->
+<div class="share-bar">
+  <button class="share-btn share-btn-green" onclick="showShareGuide()">📤 分享给朋友</button>
+  <button class="share-btn share-btn-blue" onclick="showShareGuide()">📢 分享朋友圈</button>
+  <span class="share-tip">或点右上角 ⋯ 分享</span>
+</div>
+
+<!-- API Key 设置（可折叠，不占首屏空间） -->
+<div class="api-toggle" id="apiToggle" onclick="toggleApiPanel()">
+  <span>⚙️ API设置（首次使用需填一次Key）</span>
+  <span class="api-toggle-arrow" id="apiArrow">▼</span>
+</div>
+<div class="api-panel" id="apiPanel">
+  <div class="api-source-row">
+    <button class="src-btn active" onclick="switchSource('siliconflow',this)">SiliconFlow（推荐）</button>
+    <button class="src-btn" onclick="switchSource('deepseek',this)">DeepSeek</button>
+    <button class="src-btn" onclick="switchSource('dmxapi',this)">DMXAPI中转</button>
+  </div>
+  <div class="api-row">
+    <input type="password" id="apiKeyInput" placeholder="粘贴你的 sk-xxxx API Key" autocomplete="off"/>
+    <button class="api-save" onclick="saveKey()">保存</button>
+  </div>
+  <div class="api-status" id="apiStatus">
+    还没有Key？<a href="https://cloud.siliconflow.cn" target="_blank" id="registerLink">👉 免费注册 SiliconFlow（送额度）</a>
+  </div>
+</div>
+
+<div class="section-title">🔥 选个玩法整起来</div>
+
+<!-- ===== 功能卡片 ===== -->
+<div class="card-grid">
+
+<!-- 卡片1：城区闲逛导航 -->
+<div class="card theme-red" id="card1">
+  <div class="card-header" onclick="toggleCard('card1')">
+    <div class="card-icon">🍜</div>
+    <div class="card-info">
+      <div class="card-name">城区闲逛导航</div>
+      <div class="card-desc">老街坊带路 · 夜市闯关 · 拍照打卡 · 遛娃路线</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="setTab('card1',0,this)">🚶 佛系散步</button>
+      <button class="tab-btn" onclick="setTab('card1',1,this)">📸 拍照打卡</button>
+      <button class="tab-btn" onclick="setTab('card1',2,this)">🌆 夜市闯关</button>
+      <button class="tab-btn" onclick="setTab('card1',3,this)">👶 带娃慢逛</button>
+    </div>
+    <div class="input-area">
+      <div class="input-label">📍 你现在在哪儿</div>
+      <input type="text" id="card1-loc" placeholder="例如：贺州市区、八步老街" value="贺州市区"/>
+    </div>
+    <button class="gen-btn" onclick="generate('card1')">⚡ 生成路线</button>
+    <div class="result-area" id="card1-result">
+      <div class="result-header">
+        🎉 AI生成结果
+        <div class="result-actions">
+          <button class="result-share-btn" onclick="shareResult('card1')">📤</button>
+          <button class="result-copy-btn" id="card1-rcopy" onclick="copyResult('card1')">复制</button>
+        </div>
+      </div>
+      <div class="result-content" id="card1-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 卡片2：运势机 -->
+<div class="card theme-orange" id="card2">
+  <div class="card-header" onclick="toggleCard('card2')">
+    <div class="card-icon">🎲</div>
+    <div class="card-info">
+      <div class="card-name">日常玄学运势</div>
+      <div class="card-desc">算早餐加不加蛋 · 砍价成功率 · 今日小确幸</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="setTab('card2',0,this)">☀️ 今日运势</button>
+      <button class="tab-btn" onclick="setTab('card2',1,this)">🛒 赶集运势</button>
+    </div>
+    <div class="input-area">
+      <div class="input-label">🎂 你的生肖（选填）</div>
+      <select id="card2-zodiac">
+        <option value="">随机就好</option>
+        <option>鼠</option><option>牛</option><option>虎</option><option>兔</option>
+        <option>龙</option><option>蛇</option><option>马</option><option>羊</option>
+        <option>猴</option><option>鸡</option><option>狗</option><option>猪</option>
+      </select>
+    </div>
+    <button class="gen-btn" onclick="generate('card2')">⚡ 算一卦</button>
+    <div class="result-area" id="card2-result">
+      <div class="result-header">🎉 AI生成结果
+        <div class="result-actions">
+          <button class="result-share-btn" onclick="shareResult('card2')">📤</button>
+          <button class="result-copy-btn" id="card2-rcopy" onclick="copyResult('card2')">复制</button>
+        </div>
+      </div>
+      <div class="result-content" id="card2-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 卡片3：方言大喇叭 -->
+<div class="card theme-gold" id="card3">
+  <div class="card-header" onclick="toggleCard('card3')">
+    <div class="card-icon">🗣️</div>
+    <div class="card-info">
+      <div class="card-name">方言大喇叭整活</div>
+      <div class="card-desc">一句话 → 变村口广播/领导讲话</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="setTab('card3',0,this)">📢 村口广播</button>
+      <button class="tab-btn" onclick="setTab('card3',1,this)">🎙️ 领导讲话</button>
+    </div>
+    <div class="input-area">
+      <div class="input-label">✏️ 输入你想翻译的话</div>
+      <input type="text" id="card3-text" placeholder="例如：今晚打算吃啥？" />
+    </div>
+    <button class="gen-btn" onclick="generate('card3')">⚡ 翻译整活</button>
+    <div class="result-area" id="card3-result">
+      <div class="result-header">🎉 AI生成结果
+        <div class="result-actions">
+          <button class="result-share-btn" onclick="shareResult('card3')">📤</button>
+          <button class="result-copy-btn" id="card3-rcopy" onclick="copyResult('card3')">复制</button>
+        </div>
+      </div>
+      <div class="result-content" id="card3-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 卡片4：美食发明家 -->
+<div class="card theme-green" id="card4">
+  <div class="card-header" onclick="toggleCard('card4')">
+    <div class="card-icon">🥢</div>
+    <div class="card-info">
+      <div class="card-name">本地奇葩美食发明家</div>
+      <div class="card-desc">报食材 → 生成失传名菜+离谱传说</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </div>
+  <div class="card-body">
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="setTab('card4',0,this)">🍲 发明名菜</button>
+      <button class="tab-btn" onclick="setTab('card4',1,this)">🧆 发明小吃</button>
+    </div>
+    <div class="input-area">
+      <div class="input-label">🥬 输入食材（逗号隔开）</div>
+      <input type="text" id="card4-ing" placeholder="例如：竹笋，豆腐" />
+    </div>
+    <button class="gen-btn" onclick="generate('card4')">⚡ 发明菜名</button>
+    <div class="result-area" id="card4-result">
+      <div class="result-header">🎉 AI生成结果
+        <div class="result-actions">
+          <button class="result-share-btn" onclick="shareResult('card4')">📤</button>
+          <button class="result-copy-btn" id="card4-rcopy" onclick="copyResult('card4')">复制</button>
+        </div>
+      </div>
+      <div class="result-content" id="card4-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 卡片5：酒席随份子 -->
+<div class="card theme-blue" id="card5">
+  <div class="card-header" onclick="toggleCard('card5')">
+    <div class="card-icon">🧧</div>
+    <div class="card-info">
+      <div class="card-name">酒席随份子气氛组</div>
+      <div class="card-desc">算搞笑随礼 · 挡酒话术三连</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </div>
+  <div class="card-body">
+    <div class="input-area">
+      <div class="input-label">👥 关系</div>
+      <select id="card5-rel">
+        <option>发小/铁哥们</option><option>普通朋友</option>
+        <option>同事（还行）</option><option>同事（点头之交）</option>
+        <option>远房亲戚</option><option>就是认识</option><option>隔壁邻居</option>
+      </select>
+    </div>
+    <div class="input-area">
+      <div class="input-label">🎊 喜事</div>
+      <select id="card5-event">
+        <option>结婚</option><option>满月/百日</option>
+        <option>乔迁新居</option><option>生日宴</option><option>升学宴</option>
+      </select>
+    </div>
+    <button class="gen-btn" onclick="generate('card5')">⚡ 算随礼</button>
+    <div class="result-area" id="card5-result">
+      <div class="result-header">🎉 AI生成结果
+        <div class="result-actions">
+          <button class="result-share-btn" onclick="shareResult('card5')">📤</button>
+          <button class="result-copy-btn" id="card5-rcopy" onclick="copyResult('card5')">复制</button>
+        </div>
+      </div>
+      <div class="result-content" id="card5-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 卡片6：怀旧回忆杀 -->
+<div class="card theme-purple" id="card6">
+  <div class="card-header" onclick="toggleCard('card6')">
+    <div class="card-icon">🕰️</div>
+    <div class="card-info">
+      <div class="card-name">贺州怀旧回忆杀</div>
+      <div class="card-desc">消失的老地标 · 童年零食 · 土味朋友圈</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </div>
+  <div class="card-body">
+    <div class="input-area">
+      <div class="input-label">🎂 你是哪个年代</div>
+      <select id="card6-era">
+        <option>80后</option><option>90后</option><option>00后</option>
+      </select>
+    </div>
+    <button class="gen-btn" onclick="generate('card6')">⚡ 召唤回忆</button>
+    <div class="result-area" id="card6-result">
+      <div class="result-header">🎉 AI生成结果
+        <div class="result-actions">
+          <button class="result-share-btn" onclick="shareResult('card6')">📤</button>
+          <button class="result-copy-btn" id="card6-rcopy" onclick="copyResult('card6')">复制</button>
+        </div>
+      </div>
+      <div class="result-content" id="card6-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 卡片7：假冷知识 -->
+<div class="card theme-teal" id="card7">
+  <div class="card-header" onclick="toggleCard('card7')">
+    <div class="card-icon">📰</div>
+    <div class="card-info">
+      <div class="card-name">贺州假冷知识</div>
+      <div class="card-desc">一本正经胡说 · 发群里忽悠专用</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </div>
+  <div class="card-body">
+    <div class="input-area">
+      <div class="input-label">🎯 主题（可不填）</div>
+      <input type="text" id="card7-topic" placeholder="例如：八步老街、黄姚古镇…" />
+    </div>
+    <button class="gen-btn" onclick="generate('card7')">⚡ 生成冷知识</button>
+    <div class="result-area" id="card7-result">
+      <div class="result-header">🎉 AI生成结果
+        <div class="result-actions">
+          <button class="result-share-btn" onclick="shareResult('card7')">📤</button>
+          <button class="result-copy-btn" id="card7-rcopy" onclick="copyResult('card7')">复制</button>
+        </div>
+      </div>
+      <div class="result-content" id="card7-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 卡片8：显眼包人设 -->
+<div class="card theme-pink" id="card8">
+  <div class="card-header" onclick="toggleCard('card8')">
+    <div class="card-icon">😎</div>
+    <div class="card-info">
+      <div class="card-name">显眼包人设生成</div>
+      <div class="card-desc">填特点 → 专属市井称号+朋友圈签名</div>
+    </div>
+    <div class="card-arrow">›</div>
+  </div>
+  <div class="card-body">
+    <div class="input-area">
+      <div class="input-label">🙋 你的特点/爱好</div>
+      <input type="text" id="card8-trait" placeholder="例如：爱喝粉、骑电动车…" />
+    </div>
+    <button class="gen-btn" onclick="generate('card8')">⚡ 生成人设</button>
+    <div class="result-area" id="card8-result">
+      <div class="result-header">🎉 AI生成结果
+        <div class="result-actions">
+          <button class="result-share-btn" onclick="shareResult('card8')">📤</button>
+          <button class="result-copy-btn" id="card8-rcopy" onclick="copyResult('card8')">复制</button>
+        </div>
+      </div>
+      <div class="result-content" id="card8-content"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end card-grid -->
+
+<!-- 底部 -->
+<div class="footer safe-bottom">
+  <div class="share-card">
+    <strong>📤 怎么分享给微信好友？</strong>
+    <div class="share-steps">
+      ① 点页面上方 <strong>「分享给朋友」</strong> 或右上角 <strong>⋯</strong><br>
+      ② 选择 <strong>「发送给朋友」</strong> 或 <strong>「分享到朋友圈」</strong><br>
+      ③ 好友点开链接就能直接玩！<br>
+      💡 也可以复制链接粘贴到任意群聊
+    </div>
+  </div>
+  <div>🌾 贺州乡村显眼包AI乐园 · 纯娱乐整活</div>
+  <div style="color:#ddd; margin-top:3px;">Made with ❤️ for 贺州</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===================== 状态管理 =====================
+let API_KEY = localStorage.getItem('hz_ai_key') || '';
+const tabState = {};
+
+// ===================== 多API源 =====================
+const API_SOURCES = {
+  deepseek: {
+    name: 'DeepSeek', url: 'https://api.deepseek.com/chat/completions',
+    model: 'deepseek-chat', prefix: 'sk-',
+    register: 'https://platform.deepseek.com',
+    help: '注册 → API Keys → 创建Key'
+  },
+  siliconflow: {
+    name: 'SiliconFlow', url: 'https://api.siliconflow.cn/v1/chat/completions',
+    model: 'deepseek-ai/DeepSeek-V3', prefix: 'sk-',
+    register: 'https://cloud.siliconflow.cn',
+    help: '注册送免费额度 → API密钥 → 复制Key'
+  },
+  dmxapi: {
+    name: 'DMXAPI', url: 'https://api.dmxapi.com/v1/chat/completions',
+    model: 'deepseek-ai/DeepSeek-V3', prefix: '',
+    register: 'https://www.dmxapi.com',
+    help: '注册送免费额度 → 复制Key'
+  }
+};
+let currentSource = 'siliconflow';
+
+// ===================== 初始化 =====================
+window.onload = function() {
+  const savedSrc = localStorage.getItem('hz_ai_source');
+  if (savedSrc && API_SOURCES[savedSrc]) {
+    currentSource = savedSrc;
+    document.querySelectorAll('.src-btn').forEach(b => {
+      b.classList.toggle('active', b.textContent.includes(API_SOURCES[currentSource].name));
+    });
+  }
+  updateSourceHint();
+  if (API_KEY) {
+    document.getElementById('apiKeyInput').value = '\u2022\u2022\u2022\u2022\u2022\u2022' + API_KEY.slice(-6);
+    document.getElementById('apiStatus').innerHTML = '\u2705 Key已保存（' + API_SOURCES[currentSource].name + '） <span style="color:#e8303a;cursor:pointer;" onclick="clearKey()">清除</span>';
+    document.getElementById('apiToggle').innerHTML = '<span>\u2705 API已就绪（' + API_SOURCES[currentSource].name + '）· 点击管理</span><span class="api-toggle-arrow" id="apiArrow">\u25BC</span>';
+  }
+  document.getElementById('card1').classList.add('open');
+
+  // 微信环境自动初始化分享
+  if (/MicroMessenger/i.test(navigator.userAgent)) {
+    initWechatShare();
+  }
+};
+
+// ===================== 微信分享 =====================
+function initWechatShare() {
+  // 设置基础分享信息（无JS-SDK也可用og标签）
+  try {
+    if (typeof WeixinJSBridge !== 'undefined') {
+      WeixinJSBridge.on('menu:share:appmessage', function() {
+        WeixinJSBridge.invoke('sendAppMessage', {
+          title: '贺州乡村显眼包AI \u00B7 村口整活神器',
+          desc: '贺州人自己的AI整活平台！闲逛导航、方言大喇叭、运势机…点一下直接出结果！',
+          link: location.href,
+          img_url: 'https://via.placeholder.com/300x300/e8303a/ffffff?text=贺州显眼包AI'
+        });
+      });
+      WeixinJSBridge.on('menu:share:timeline', function() {
+        WeixinJSBridge.invoke('shareTimeline', {
+          title: '贺州乡村显眼包AI \u00B7 村口整活神器',
+          desc: '专治无聊·纯玩无用·贺州限定',
+          link: location.href,
+          img_url: 'https://via.placeholder.com/300x300/e8303a/ffffff?text=贺州显眼包AI'
+        });
+      });
+    }
+  } catch(e) {}
+}
+
+function showShareGuide() {
+  document.getElementById('shareGuide').classList.add('show');
+}
+
+// ===================== API设置面板 =====================
+function toggleApiPanel() {
+  const panel = document.getElementById('apiPanel');
+  const toggle = document.getElementById('apiToggle');
+  panel.classList.toggle('show');
+  toggle.classList.toggle('open');
+}
+
+function switchSource(src, btn) {
+  currentSource = src;
+  localStorage.setItem('hz_ai_source', src);
+  document.querySelectorAll('.src-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  updateSourceHint();
+  if (API_KEY) {
+    API_KEY = '';
+    localStorage.removeItem('hz_ai_key');
+    document.getElementById('apiKeyInput').value = '';
+    document.getElementById('apiStatus').textContent = '切换了API源，请重新粘贴Key';
+  }
+}
+
+function updateSourceHint() {
+  const src = API_SOURCES[currentSource];
+  document.getElementById('registerLink').href = src.register;
+  document.getElementById('registerLink').textContent = '\uD83D\uDC49 免费注册 ' + src.name + '（送额度）';
+  document.getElementById('apiKeyInput').placeholder = src.prefix ? '粘贴 ' + src.prefix + 'xxxx Key' : '粘贴 API Key';
+}
+
+function saveKey() {
+  const val = document.getElementById('apiKeyInput').value.trim();
+  if (!val || val.startsWith('\u2022\u2022')) { showToast('请粘贴真实的API Key'); return; }
+  const src = API_SOURCES[currentSource];
+  if (src.prefix && !val.startsWith(src.prefix)) { showToast('Key格式不对，应以 ' + src.prefix + ' 开头'); return; }
+  API_KEY = val;
+  localStorage.setItem('hz_ai_key', val);
+  document.getElementById('apiKeyInput').value = '\u2022\u2022\u2022\u2022\u2022\u2022' + val.slice(-6);
+  document.getElementById('apiStatus').innerHTML = '\u2705 Key已保存（' + src.name + '） <span style="color:#e8303a;cursor:pointer;" onclick="clearKey()">清除</span>';
+  document.getElementById('apiToggle').innerHTML = '<span>\u2705 API已就绪（' + src.name + '）</span><span class="api-toggle-arrow" id="apiArrow">\u25BC</span>';
+  showToast('\u2705 Key保存成功！');
+}
+
+function clearKey() {
+  API_KEY = '';
+  localStorage.removeItem('hz_ai_key');
+  document.getElementById('apiKeyInput').value = '';
+  const src = API_SOURCES[currentSource];
+  document.getElementById('apiStatus').innerHTML = '还没有Key？<a href="'+src.register+'" target="_blank">\uD83D\uDC49 免费注册 '+src.name+'（送额度）</a>';
+  document.getElementById('apiToggle').innerHTML = '<span>\u2699\uFE0F API设置（首次使用需填一次Key）</span><span class="api-toggle-arrow" id="apiArrow">\u25BC</span>';
+  showToast('Key已清除');
+}
+
+// ===================== 卡片/Tab =====================
+function toggleCard(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function setTab(cardId, idx, btn) {
+  btn.parentElement.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  tabState[cardId] = idx;
+  const ra = document.getElementById(cardId + '-result');
+  if (ra) ra.classList.remove('show');
+}
+
+// ===================== 构建Prompt =====================
+function buildPrompt(cardId) {
+  const tab = tabState[cardId] || 0;
+
+  if (cardId === 'card1') {
+    const loc = document.getElementById('card1-loc').value || '贺州市区';
+    const prompts = [
+      `你是贺州本地老街坊活地图，用口语化粤语/客家话风格帮我规划一条从【${loc}】出发的佛系散步路线，要求：路过最多小吃摊、最易偶遇熟人、最适合慢悠悠逛、避开广场舞/人流。每个节点配具体推荐（真实贺州本地小吃/地名为佳），语气接地气像唠嗑，字数300字以内。`,
+      `你是贺州城区ins风打卡达人，帮我规划从【${loc}】出发的打卡拍照路线，专挑普通街角、老墙、市井小店、有年代感招牌，每个打卡点配：①朋友圈搞笑文案 ②建议拍照角度，最后推荐1家本地老凉茶/甜品摊，300字以内。`,
+      `你是贺州宵夜情报站，用电竞解说口吻帮我设计一条【${loc}】出发的夜市闯关路线，按关卡：第一关烧烤→第二关煮粉→第三关甜品→隐藏关水果摊，每关必点单品+点单暗语，最后算总热量和要走多少步消耗，300字以内。`,
+      `你是贺州遛娃老司机，帮我设计从【${loc}】出发的带娃城区慢逛半日路线，要求全程平坦适合推车、有厕所、有免费玩耍区。每个点写：娃能玩啥+家长能摸啥鱼，最后送1句对娃假装教育实则自己爽的贺州金句，300字以内。`
+    ];
+    return prompts[tab];
+  }
+
+  if (cardId === 'card2') {
+    const zodiac = document.getElementById('card2-zodiac').value;
+    const zodiacStr = zodiac ? `，我属${zodiac}` : '';
+    const prompts = [
+      `你是贺州市井运势大师${zodiacStr}，用搞笑接地气风格帮我预测今日：1.早餐加不加肠加蛋 2.砍价成功率 3.出门碰熟人概率 4.停车找位置难度 5.今日小确幸是什么，最后加一句贺州专属搞笑祝福语，200字以内。`,
+      `你是贺州赶集运势大师${zodiacStr}，用搞笑风格预测今日赶集：1.会不会买到亏本货 2.砍价能不能成功 3.会不会碰到熟人被拉去吃饭 4.买的菜新不新鲜 5.有没有捡便宜的命，越搞笑越好，最后给一句赶集护身符口诀，200字以内。`
+    ];
+    return prompts[tab];
+  }
+
+  if (cardId === 'card3') {
+    const text = document.getElementById('card3-text').value;
+    if (!text) return null;
+    const prompts = [
+      `把这句话翻译成贺州本地地道方言+村口大喇叭喊话风格，带停顿、重音、口语化助词，像村支书广播，越魔性越好：「${text}」`,
+      `把这句话改成本地基层领导开会讲话风格，一本正经胡说八道，加开场白、停顿、总结，语气搞笑无厘头，最后加一句贺州方言收尾：「${text}」`
+    ];
+    return prompts[tab];
+  }
+
+  if (cardId === 'card4') {
+    const ing = document.getElementById('card4-ing').value;
+    if (!ing) return null;
+    const prompts = [
+      `我有两种贺州本地食材：${ing}。帮我原创一道【贺州失传小众名菜】，包含：①菜名（要有气势）②离谱起源传说 ③搞笑养生功效 ④假装正宗的吃法步骤，全程接地气，适合发朋友圈假装探店，200字以内。`,
+      `我有贺州本地食材：${ing}。帮我原创一款【贺州古早味街头小吃】，包含：①小吃名字 ②摊位吆喝口号 ③定价（要很便宜）④仪式感吃法 ⑤据说有的离谱功效，语气像老摊主在吆喝，最后一句推广文案，200字以内。`
+    ];
+    return prompts[tab];
+  }
+
+  if (cardId === 'card5') {
+    const rel = document.getElementById('card5-rel').value;
+    const event = document.getElementById('card5-event').value;
+    return `我要去参加一个${rel}的${event}，帮我：①用搞笑方式给出随礼金额建议（要有理由）②写一句专属随礼红包文案 ③给3句贺州本地风格的逃酒/挡酒搞笑话术，越接地气越好，200字以内。`;
+  }
+
+  if (cardId === 'card6') {
+    const era = document.getElementById('card6-era').value;
+    return `你是贺州怀旧搭子，我是${era}的贺州人，帮我整理：①贺州已消失的老地标/老店（3个）②童年常吃的平价零食（4种）③小时候街头娱乐项目（3种）④最后生成一段土味童年朋友圈文案，适合发圈怀念青春，300字以内。`;
+  }
+
+  if (cardId === 'card7') {
+    const topic = document.getElementById('card7-topic').value;
+    const topicStr = topic ? `关于【${topic}】的` : '关于贺州的';
+    return `帮我编一条${topicStr}假历史/假传说/假冷知识，要求：听起来一本正经、有理有据，实则完全瞎编，字数简短好传播，结尾加"（以上纯属娱乐）"，100字以内。`;
+  }
+
+  if (cardId === 'card8') {
+    const trait = document.getElementById('card8-trait').value || '爱逛夜市爱喝粉';
+    return `根据这个特点「${trait}」，给我生成一个贺州本地专属显眼包人设：①市井称号（要响亮有趣）②人设标签3个 ③行为准则3条 ④朋友圈签名1句 ⑤用贺州话说的自我介绍一句，主打土酷搞笑，200字以内。`;
+  }
+
+  return null;
+}
+
+// ===================== 调用AI =====================
+async function generate(cardId) {
+  if (!API_KEY) {
+    showToast('请先填入 API Key！');
+    toggleApiPanel();
+    document.getElementById('apiKeyInput').focus();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  const prompt = buildPrompt(cardId);
+  if (!prompt) { showToast('请先填写内容！'); return; }
+
+  const btn = document.querySelector(`#${cardId} .gen-btn`);
+  const resultArea = document.getElementById(cardId + '-result');
+  const contentEl = document.getElementById(cardId + '-content');
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div> AI思考中\u2026';
+  resultArea.classList.add('show');
+  contentEl.innerHTML = '<div class="loading-dots"><span></span><span></span><span></span></div>';
+
+  const src = API_SOURCES[currentSource];
+
+  try {
+    const response = await fetch(src.url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + API_KEY },
+      body: JSON.stringify({
+        model: src.model,
+        messages: [
+          { role: 'system', content: '你是一个服务贺州本地人的搞笑整活AI助手，擅长方言梗、接地气的本地文化内容。回答要有趣、接地气、贴近贺州本地生活。' },
+          { role: 'user', content: prompt }
+        ],
+        stream: true, max_tokens: 600, temperature: 0.9
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || err.message || `HTTP ${response.status}`);
+    }
+
+    contentEl.innerHTML = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    contentEl.appendChild(cursor);
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '', fullText = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed === 'data: [DONE]' || !trimmed.startsWith('data: ')) continue;
+        try {
+          const data = JSON.parse(trimmed.slice(6));
+          const delta = data.choices?.[0]?.delta?.content || '';
+          if (delta) {
+            fullText += delta;
+            contentEl.textContent = fullText;
+            contentEl.appendChild(cursor);
+            resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        } catch (e) {}
+      }
+    }
+    cursor.remove();
+    contentEl.textContent = fullText;
+
+  } catch (e) {
+    contentEl.textContent = '';
+    const msg = (e.message || '').toLowerCase();
+    if (msg.includes('401') || msg.includes('auth') || msg.includes('invalid')) {
+      contentEl.innerHTML = '❌ Key不正确，请重新填写<br><br>💡 去 <a href="'+src.register+'" target="_blank" style="color:#e8303a">'+src.name+'</a> 获取Key';
+    } else if (msg.includes('balance') || msg.includes('quota') || msg.includes('insufficient') || msg.includes('credit')) {
+      contentEl.innerHTML = '❌ 额度用完了<br><br>🔧 ① 去<a href="'+src.register+'" target="_blank" style="color:#e8303a">'+src.name+'</a>充值<br>② 切换其他API源<br>③ 新号注册送额度';
+    } else if (msg.includes('429') || msg.includes('rate')) {
+      contentEl.innerHTML = '❌ 请求太频繁，等30秒再试';
+    } else if (msg.includes('failed to fetch') || msg.includes('network') || msg.includes('cors')) {
+      contentEl.innerHTML = '❌ 网络失败<br><br>🔧 ① 换API源试试<br>② 切换WiFi/4G<br>③ 用电脑浏览器';
+    } else {
+      contentEl.innerHTML = '❌ ' + e.message + '<br>试试切换API源';
+    }
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '⚡ 重新生成';
+  }
+}
+
+// ===================== 复制 & 分享结果 =====================
+function copyResult(cardId) {
+  const text = document.getElementById(cardId + '-content').textContent;
+  const btn = document.getElementById(cardId + '-rcopy');
+  if (!text || text.startsWith('❌')) return;
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => flashCopy(btn));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0;left:-999px';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    flashCopy(btn);
+  }
+}
+
+function flashCopy(btn) {
+  btn.textContent = '✓';
+  btn.classList.add('copied');
+  showToast('✅ 已复制，可粘贴到微信发送！');
+  setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 2000);
+}
+
+function shareResult(cardId) {
+  const text = document.getElementById(cardId + '-content').textContent;
+  if (!text || text.startsWith('❌')) return;
+
+  // 微信内环境
+  if (/MicroMessenger/i.test(navigator.userAgent)) {
+    // 微信内无法直接调用分享API（需要JS-SDK），先复制再引导
+    copyTextToClipboard(text);
+    showShareGuide();
+    return;
+  }
+
+  // 非微信环境：用系统分享
+  if (navigator.share) {
+    navigator.share({
+      title: '贺州乡村显眼包AI',
+      text: text,
+    }).catch(() => {});
+  } else {
+    copyResult(cardId);
+    showToast('已复制，可粘贴发送');
+  }
+}
+
+function copyTextToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text);
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0;left:-999px';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+}
+
+// ===================== Toast =====================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>
